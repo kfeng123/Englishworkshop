@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>mapreduce</title>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- CSS 
+        ================================================== -->
+    <!-- Bootstrap 3-->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!-- Google Fonts
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic|Roboto+Condensed:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700' rel='stylesheet' type='text/css'>
+     -->
+    
+    <!-- Template Styles -->
+    <link href="css/style.css" rel="stylesheet" media="screen">
+      </head>
+  <body>
+	  
+	  <!-- NAVBAR
+	      ================================================== -->
+	  <nav class="navbar navbar-default" role="navigation">
+	  	  <div class="container">
+			  <div class="navbar-header">
+			    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+			      <span class="sr-only">Toggle navigation</span>
+			      <span class="icon-bar"></span>
+			      <span class="icon-bar"></span>
+			      <span class="icon-bar"></span>
+			    </button>
+			    
+			    <!--Replace text with your app name or logo image-->
+			    <a class="navbar-brand" href="#">workshop</a>
+			    
+			  </div>
+			  <div class="collapse navbar-collapse navbar-ex1-collapse">
+			    <ul class="nav navbar-nav">
+			      <li><a onclick="$('header').animatescroll({padding:71});">开始</a></li>
+			      <li><a onclick="$('.payoff').animatescroll({padding:71});">要翻译</a></li>
+			      <li><a onclick="$('.detail').animatescroll({padding:71});">原理</a></li>
+			      <li><a onclick="$('.social').animatescroll({padding:71});">个人介绍</a></li>
+			    </ul>
+			  </div>
+		  </div>
+	  </nav>
+	  
+	  
+	   <!-- HEADER
+	   ================================================== -->	  
+	  <header>
+		 <div class="container">
+			 <div class="row">
+				 <div class="col-md-12">
+					  <h1>MapReduce</h1>
+					  <p class="lead">workshop of 王睿</p>
+					  <button id="go" type="button" class="btn btn-default">GO</button>
+				</div>	  
+				<div class="carousel-iphone col-md-6">
+　　<p>说是寂寞的秋的清愁 ，</p>
+　　<p>说是辽远的海的相思 。</p>
+　　<p>假如有人问我的烦忧 ，</p>
+　　<p>我不敢说出你的名字 。</p>
+　　<p>我不敢说出你的名字 ，</p>
+　　<p>假如有人问我的烦忧 。</p>
+　　<p>说是辽远的海的相思 ，</p>
+　　<p>说是寂寞的秋的清愁 。</p>
+
+				</div>
+				<div class="col-md-2 test">
+					  <p class="lead">词语</p>
+					  <p>说是</p>
+					  <p>寂寞</p>
+					  <p>的</p>
+					  <p>秋</p>
+					  <p>清愁</p>
+					  <p>辽远</p>
+					  <p>海</p>
+					  <p>相思</p>
+					  <p>...</p>
+					  <p>...</p>
+					  
+				</div>
+				<div class="col-md-2 test">
+					<p class="lead">频率</p>
+					
+					  <p>4</p>
+					  <p>2</p>
+					  <p>6</p>
+					  <p>2</p>
+					  <p>2</p>
+					  <p>2</p>
+					  <p>2</p>
+					  <p>2</p>
+					  <p>...</p>
+					  <p>...</p>
+					  
+				</div>
+			</div>    
+		</div>
+	 </header>
+	  
+	  
+	  <!-- PURCHASE
+	      ================================================== -->
+	  <section class="purchase">
+		  <div class="container">
+			  <div class="row">
+				  
+				  <div class=" col-md-2" >
+					 	<h2>编号(key)</h2>
+					 	<h3>1</h3>
+				  </div>
+				  <div class="col-md-2">
+				  	<h2>段落(value)</h2>
+<p>说是寂寞的秋的清愁,说是辽远的海的相思。假如有人问我的烦忧，</p>
+				  </div>
+				 
+				  
+				  
+				  <div class=" col-md-2">
+					 	<h2>编号(key)</h2>
+					 	<h3>2</h3>
+				  </div>
+				  <div class="col-md-2">
+				  	<h2>段落(value)</h2>
+<p>我不敢说出你的名字 。我不敢说出你的名字，假如有人问我的烦忧 。</p>
+				  </div>
+				  <div class=" col-md-2">
+					 	<h2>编号(key)</h2>
+					 	<h3>3</h3>
+				  </div>
+				  <div class="col-md-2">
+				  	<h2>段落(value)</h2>
+<p>说是辽远的海的相思，说是寂寞的秋的清愁 。</p>
+				  </div>
+			  </div>
+		  </div>
+	  </section>
+	  
+	  
+	  <!-- PAYOFF 
+	      ================================================== -->
+	  <section class="payoff">
+		<div class="container">
+			  <div class="row">
+				  <div class="col-md-12">
+					 <h1>MapReduce: Simplified Data Processing on Large Clusters<small>Jeffrey Dean and Sanjay Ghemawat 2004</small></h1> 
+				  </div>
+				  <div class="col-md-12">
+				  	<h2>
+				  		MapReduce is a programming model and an associated implementation for processing and generating large
+data sets. Users specify a map function that processes a
+key/value pair to generate a set of intermediate key/value
+pairs, and a reduce function that merges all intermediate
+values associated with the same intermediate key. Many
+real world tasks are expressible in this model, as shown
+in the paper.
+				  	</h2>
+				  </div>
+				  
+			  </div>
+			  
+		  </div>	  
+	  </section>
+	  
+	  
+	  <!-- DETAILS 
+	      ================================================== -->
+	  <section class="detail">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div id="carousel-example-generic-2" class="carousel slide">
+										
+					  <!-- Wrapper for slides -->
+					  <div class="carousel-inner">
+					    <div class="item active">
+					      	<div class="row">
+					      		<div class="col-sm-12 col-md-offset-1 col-md-6">
+					      			<div class=" col-md-3" >
+									 	<h2>编号(key)</h2>
+									 	<h3>1</h3>
+								  </div>
+								  <div class="col-md-3">
+								  	<h2>段落(value)</h2>
+										<p>说是寂寞的秋的清愁,说是辽远的海的相思。假如有人问我的烦忧，</p>
+								  </div>
+					      		
+					      		
+					      		
+					      		
+					      		</div>
+					      		<div class="col-sm-12 col-md-5">
+					      			<div class="col-md-2">
+					      					  <h4>词语(key)</h4>
+										  <p>说是</p>
+										  <p>寂寞</p>
+										  <p><strong>的</strong></p>
+										  <p>秋</p>
+										  <p>清愁</p>
+										  <p>辽远</p>
+										  <p>海</p>
+										  <p>相思</p>
+										  <p>...</p>
+										  <p>...</p>
+					      			</div>
+					      			<div class="col-md-2">
+					      					<h4>频率(value)</h4>
+					
+										  <p>2</p>
+										  <p>1</p>
+										  <p><strong>4</strong></p>
+										  <p>1</p>
+										  <p>1</p>
+										  <p>1</p>
+										  <p>1</p>
+										  <p>1</p>
+										  <p>...</p>
+										  <p>...</p>
+					      			
+					      			</div>
+					      		</div>
+					      	</div>
+					    </div>
+					    <div class="item">
+					    	<div class="row">
+					    		<div class="col-sm-12 col-md-offset-1 col-md-6">
+					    			<div class=" col-md-3" >
+									 	<h2>编号(key)</h2>
+									 	<h3>2</h3>
+								  </div>
+								  <div class="col-md-3">
+								  	<h2>段落(value)</h2>
+										<p>我不敢说出你的名字 。我不敢说出你的名字，假如有人问我的烦忧 。</p>
+								  </div>
+					    		</div>
+					    		<div class="col-sm-12 col-md-5">
+					    			<div class="col-md-2">
+					      					  <h4>词语(key)</h4>
+										  <p>我</p>
+										  <p>不敢</p>
+										  <p>说出</p>
+										  <p>你</p>
+										  <p><strong>的</strong></p>
+										  <p>名字</p>
+										  <p>假如</p>
+										  <p>有人</p>
+										  <p>...</p>
+										  <p>...</p>
+					      			</div>
+					      			<div class="col-md-2">
+					      					<h4>频率(value)</h4>
+					
+										  <p>2</p>
+										  <p>2</p>
+										  <p>2</p>
+										  <p>2</p>
+										  <p><strong>2</strong></p>
+										  
+										  <p>2</p>
+										  <p>1</p>
+										  <p>1</p>
+										  <p>...</p>
+										  <p>...</p>
+					      			
+					      			</div>
+					    		</div>
+					    	</div>
+						</div>
+					    <div class="item">
+					      <div class="row">
+					      	<div class="col-sm-12 col-md-offset-1 col-md-6">
+					      			<div class=" col-md-3" >
+									 	<h2>编号(key)</h2>
+									 	<h3>3</h3>
+								  </div>
+								  <div class="col-md-3">
+								  	<h2>段落(value)</h2>
+										<p>说是辽远的海的相思，说是寂寞的秋的清愁 。</p>
+								  </div>
+					       	</div>
+					      	<div class="col-sm-12 col-md-5">
+					      			<div class="col-md-2">
+					      					  <h4>词语(key)</h4>
+										  <p>说是</p>
+										  <p>辽远</p>
+										  <p><strong>的</strong></p>
+										  <p>海</p>
+										  <p>相思</p>
+										  <p>寂寞</p>
+										  <p>秋</p>
+										  <p>清愁</p>
+										  <p>...</p>
+										  <p>...</p>
+					      			</div>
+					      			<div class="col-md-2">
+					      					<h4>频率(value)</h4>
+					
+										  <p>2</p>
+										  <p>1</p>
+										  <p><strong>2</strong></p>
+										  <p>1</p>
+										  <p>1</p>
+										  <p>1</p>
+										  <p>1</p>
+										  <p>1</p>
+										  <p>...</p>
+										  <p>...</p>
+					      			
+					      			</div>
+					      	</div>
+					      </div>
+					    </div>
+					  </div>
+					
+					  <!-- Indicators -->
+					  <ol class="carousel-indicators">
+					    <li data-target="#carousel-example-generic-2" data-slide-to="0" class="active"></li>
+					    <li data-target="#carousel-example-generic-2" data-slide-to="1"></li>
+					    <li data-target="#carousel-example-generic-2" data-slide-to="2"></li>
+					  </ol>		
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	  
+	  <!-- FEATURES
+	      ================================================== -->
+	  <section class="features">
+		  <div class="container">
+			  <div class="row">
+				
+				  <div class="col-md-4">
+				  		<h1>第1段</h1>
+					  <div class="circle"><h1>的：4</h1></div>
+					  <!--<h2>Quick &amp; Easy Setup</h2>
+					  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+				  		-->
+				  </div>
+				
+				  <div class="col-md-4">
+				  		<h1>第2段</h1>
+					  <div class="circle"><h1>的：2</h1></div>
+					  <!--<h2>Parallax Scrolling</h2>
+					  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+				  		-->
+				  </div>
+				 
+				  <div class="col-md-4">
+				  		<h1>第3段</h1>
+					  <div class="circle"><h1>的：2</h1></div>
+					  <!--<h2>Responsive Design</h2>
+					  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+				  		-->
+				  </div>
+				  
+			  </div>
+			  <h2>reduce函数:对具有相同的key(‘的’)的value(4,2,2)进行merge(相加)，得到最终的结果4+2+2=8</h2>
+		  </div>
+	  </section>
+	  
+		
+	 <!-- SOCIAL
+	     ================================================== -->
+	 
+	  <section class="social">
+	  	<div class="container">
+	  		  <div class="row">
+	  			  <div class="col-md-12">
+	  			  	<h2>关于我</h2>
+	  			   	<a href="https://github.com/kfeng123">github</a>
+	  			   	<a href="https://kfeng123.github.io">个人博客</a>
+	  			   	
+	  			   	<h2>powered by LANDY</h2>
+	  			   </div>
+	  		  </div>
+	  	  </div>	  
+	  </section>
+	  
+	
+	 <!-- GET IT 
+	     ================================================== -->
+	  
+	  <!--
+	  <section class="get-it">
+	  	<div class="container">
+	  		<div class="row">
+	  			<div class="col-md-12">
+	  				<h1>Avaialable now on the App Store</h1>
+	  				<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+	  				<button type="button" class="app-store"></button>
+	  			</div>
+	  			<div class="col-md-12">
+	  				<hr />
+		  			<ul>
+	                	<li><a href="#link-here">Contact</a></li>
+	                	<li><a href="#link-here">Twitter</a></li>
+	                	<li><a href="#link-here">Press</a></li>
+	                	<li><a href="#link-here">Support</a></li>
+	                	<li><a href="#link-here">Developers</a></li>
+	                	<li><a href="#link-here">Privacy</a></li>
+                	</ul>
+	  			</div>
+	  		</div>
+	  	</div>
+	  </section>
+	  -->
+	 
+	 <!-- JAVASCRIPT
+	     ================================================== -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/animatescroll.js"></script>
+    <script src="js/scripts.js"></script>
+    <!--<script src="js/retina-1.1.0.min.js"></script>-->
+  	
+</html>
